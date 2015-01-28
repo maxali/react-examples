@@ -42,7 +42,7 @@
         for (var i = this.props.displayStart; i <= this.props.displayEnd; ++i) {
             var record = this.props.records[i];
             rows['line' + i] = (
-                <tr className={i % 2 === 0 ? 'w2ui-even' : 'w2ui-odd'} style={{height: this.props.recordHeight}}>
+                <tr className={i % 2 === 0 ? 'w2ui-even' : 'w2ui-odd'} style={{height: this.props.recordHeight + Math.floor(Math.random() * 100)}}>
                     <td className="w2ui-grid-data" col="0">
                         <div title={i + 1}>{i + 1}</div>
                     </td>
@@ -59,6 +59,7 @@
                 </tr>
             );
         }
+
         rows.bottom = (
             <tr id="gridgridrecbottom" line="bottom" style={{height: (this.props.records.length - this.props.displayEnd) * this.props.recordHeight}}>
                 <td colSpan="200"></td>
@@ -130,10 +131,10 @@ var Grid = React.createClass({
     },
 
     scrollState: function(scroll) {
-        var visibleStart = Math.floor(scroll / this.state.recordHeight);
+        var visibleStart = Math.min(Math.floor(scroll / this.state.recordHeight), this.state.total - 1);
         var visibleEnd = Math.min(visibleStart + this.state.recordsPerBody, this.state.total - 1);
 
-        var displayStart = Math.max(0, Math.floor(scroll / this.state.recordHeight) - this.state.recordsPerBody * 1.5);
+        var displayStart = Math.max(0, visibleStart - this.state.recordsPerBody * 1.5);
         var displayEnd = Math.min(displayStart + 4 * this.state.recordsPerBody, this.state.total - 1);
 
         this.setState({
@@ -152,19 +153,13 @@ var Grid = React.createClass({
     formatNumber: function(number) {
         return (''+number).split('').reverse().join('').replace(/(...)/g, '$1,').split('').reverse().join('').replace(/^,/, '');
     },
-    
-    getCount: function() {
-    	return (this.formatNumber(1 + this.state.visibleStart)) +
-         '-' + (this.formatNumber(1 + this.state.visibleEnd)) +
-         ' of ' + this.formatNumber(this.state.total);
-    },
 
     render: function() {
         return (
     <div id="grid" style={{width: 600, height: 568}} name="grid" className="w2ui-reset w2ui-grid">
       <div style={{width: 598, height: 566}}>
         <div id="gridgridheader" className="w2ui-grid-header" style={{display: 'none'}}></div>
-        <div id="gridgridbody" className="w2ui-grid-body" style={{top: 0, bottom: 24, left: 0, right: 0, height: 542}}>
+        <div id="gridgridbody" className="w2ui-grid-body" style={{top: 0, bottom: 0, left: 0, right: 0, height: 566}}>
           <div id="gridgridrecords" className="w2ui-grid-records" style={{top: 26, 'overflowX': 'hidden', 'overflowY': 'auto'}} ref="scrollable" onScroll={this.onScroll}>
               <GridBody
                   records={this.state.records}
@@ -202,14 +197,6 @@ var Grid = React.createClass({
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-        <div id="gridgridsummary" className="w2ui-grid-body w2ui-grid-summary" style={{display: 'none'}}></div>
-        <div id="gridgridfooter" className="w2ui-grid-footer" style={{bottom: 0, left: 0, right: 0}}>
-          <div>
-            <div className="w2ui-footer-left"></div>
-            <div className="w2ui-footer-right">{this.getCount()}</div>
-            <div className="w2ui-footer-center"></div>
           </div>
         </div>
       </div>
