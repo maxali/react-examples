@@ -29,22 +29,12 @@
     shouldComponentUpdate: function(nextProps, nextState) {
         return this.state.shouldUpdate;
     },
-    
-    render: function() {
-        var rows = {};
-        
-        rows.top = (
-            <tr id="gridgridrectop" line="top" style={{height: this.props.displayStart * this.props.recordHeight}}>
-                <td colSpan="200"></td>
-            </tr>
-        );
 
-        for (var i = this.props.displayStart; i <= this.props.displayEnd; ++i) {
-            var record = this.props.records[i];
-            rows['line' + i] = (
-                <tr className={i % 2 === 0 ? 'w2ui-even' : 'w2ui-odd'} style={{height: this.props.recordHeight + Math.floor(Math.random() * 100)}}>
+    getRow: function (nr, record) {
+        return (
+                <tr className={(nr) % 2 === 0 ? 'w2ui-odd' : 'w2ui-even'} style={{height: this.props.recordHeight + Math.floor(Math.random() * 100)}}>
                     <td className="w2ui-grid-data" col="0">
-                        <div title={i + 1}>{i + 1}</div>
+                        <div title={nr}>{nr}</div>
                     </td>
                     <td className="w2ui-grid-data" col="1">
                         <div title={record.fname}>{record.fname}</div>
@@ -58,6 +48,19 @@
                     <td className="w2ui-grid-data-last"></td>
                 </tr>
             );
+    },
+    
+    render: function() {
+        var rows = {};
+        
+        rows.top = (
+            <tr id="gridgridrectop" line="top" style={{height: this.props.displayStart * this.props.recordHeight}}>
+                <td colSpan="200"></td>
+            </tr>
+        );
+
+        for (var i = this.props.displayStart; i <= this.props.displayEnd; ++i) {
+            rows['line' + i] = this.getRow(i + 1, this.props.records[i]);
         }
 
         rows.bottom = (
