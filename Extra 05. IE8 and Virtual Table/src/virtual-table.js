@@ -176,25 +176,32 @@ var Grid = React.createClass({
           </div>
           <div id="gridgridcolumns" className="w2ui-grid-columns">
             <table>
+              <colgroup>
+                <col style={{width: 50}}></col>
+                <col style={{width: 150}}></col>
+                <col style={{width: 150}}></col>
+                <col style={{width: 150}}></col>
+                <col style={{width: 98}}></col>
+              </colgroup>
               <tbody>
                 <tr>
-                  <td col="0" className="w2ui-head" style={{width: 50}}>
+                  <td col="0" className="w2ui-head">
                     <div className="w2ui-resizer" name="0" style={{height: 25, 'marginLeft': 46}}></div>
                     <div>ID</div>
                   </td>
-                  <td col="1" className="w2ui-head" style={{width: 150}}>
+                  <td col="1" className="w2ui-head">
                     <div className="w2ui-resizer" name="1" style={{height: 25, 'marginLeft': 146}}></div>
                     <div>First Name</div>
                   </td>
-                  <td col="2" className="w2ui-head" style={{width: 150}}>
+                  <td col="2" className="w2ui-head">
                     <div className="w2ui-resizer" name="2" style={{height: 25, 'marginLeft': 146}}></div>
                     <div>Last Name</div>
                   </td>
-                  <td col="3" className="w2ui-head" style={{width: 150}}>
+                  <td col="3" className="w2ui-head">
                     <div className="w2ui-resizer" name="3" style={{height: 25, 'marginLeft': 146}}></div>
                     <div>Email</div>
                   </td>
-                  <td className="w2ui-head w2ui-head-last" style={{width: 98}}>
+                  <td className="w2ui-head w2ui-head-last">
                     <div>{String.fromCharCode(160)}</div>
                   </td>
                 </tr>
