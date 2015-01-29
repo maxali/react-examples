@@ -1,1 +1,1 @@
-jsx --watch ./src ./build
+jsx --watch --extension jsx ./src ./build
