@@ -45,7 +45,8 @@
                     <td className="w2ui-grid-data" col="3">
                         <div title={record.email}>{record.email}</div>
                     </td>
-                    <td className="w2ui-grid-data-last"></td>
+                    <td className="w2ui-grid-data-last">
+                    </td>
                 </tr>
             );
     },
